@@ -15,7 +15,7 @@
         <Label Content="Output" HorizontalAlignment="Left" Margin="60,140,0,0" VerticalAlignment="Top"/>
         <Button x:Name="btnOutputFile" Content="Pick Folder" HorizontalAlignment="Left" Margin="60,180,0,0" VerticalAlignment="Top"/>
         <TextBox x:Name="txtOutputFilePath" HorizontalAlignment="Left" Margin="140,180,0,0" VerticalAlignment="Top" Width="600" IsReadOnly="True"/>
-        <TextBox HorizontalAlignment="Left" Margin="140,220,0,0" TextWrapping="Wrap" Text="1" VerticalAlignment="Top" Width="40" MaxLength="2"/>
+        <TextBox x:Name="txtNumFiles" HorizontalAlignment="Left" Margin="140,220,0,0" TextWrapping="Wrap" Text="1" VerticalAlignment="Top" Width="40" MaxLength="2"/>
         <Label Content="# of Files :" HorizontalAlignment="Left" Margin="60,220,0,0" VerticalAlignment="Top"/>
         <Button x:Name="btnSplit" Content="Split" HorizontalAlignment="Left" Margin="200,220,0,0" VerticalAlignment="Top"/>
         <ListBox x:Name="lstFiles" Margin="140,260,60,60"/>
