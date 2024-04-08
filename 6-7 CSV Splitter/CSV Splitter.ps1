@@ -1,7 +1,6 @@
 Add-Type -AssemblyName PresentationFramework 
 
 $XamlFile = "C:\Users\cmsmith5\PowerShell\MainWindowCSV.xaml"
-
 $inputXAML = Get-Content -Path $XamlFile -Raw
 $inputXAML = $inputXAML -replace 'mc:Ignorable="d"','' -replace "x:N","N" -replace '^<Win.*','<Window'
 [XML]$XAML=$inputXAML
@@ -30,6 +29,27 @@ $var_btnInputFile.Add_Click({
     $var_txtInputFilePath.Text = $inputFilePick.FileName
 })
 
+$var_btnValidate.Add_Click({
+    try{
+        $sourceCSV = $var_txtInputFilePath.Text
+        $CSVData = Import-Csv -Path $sourceCSV -Delimiter $var_txtDelimiter.Text
+        $var_lblValid.Content = "Valid : $($CSVData.Count) Lines"
+        $Headers = (Get-Content -Path $sourceCSV)[0].split("$($var_txtDelimiter.Text)")
+
+        $HeaderPreview = ""
+        $i = 1
+        foreach($header in $Headers){
+            $HeaderPreview += "Column $1 : $header "
+            $1 += 1
+        }
+        $var_lblHeaders.Content=$HeaderPreview
+
+    }catch{
+        $var_lblValid.Content = "Not Valid!"
+    }
+})
+
+
 $var_btnOutputFile.Add_Click({
     $OutputFolder = New-Object System.Windows.Forms.FolderBrowserDialog
     $OutputFolder.ShowDialog()
@@ -50,6 +70,7 @@ $var_btnSplit.Add_Click({
             $var_lstFiles.Items.Add("$($var_txtOutputFilePath.Text)\ouput-$($Counter).csv was created!")
             $StartRow += $RowPerFile
             $Counter += 1
+            $Counter
             }
     }catch{
         $var_lstFiles.Items.Add("Error!")
@@ -57,8 +78,4 @@ $var_btnSplit.Add_Click({
 })
 
 
-
 $psform.ShowDialog()
-
-
-
